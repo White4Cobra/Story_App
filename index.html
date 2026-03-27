@@ -1,17 +1,17 @@
-
-
 <!DOCTYPE html>
-<html>
-<head> <link rel="manifest" href="manifest.json"> 
+<html lang="de">
+<head>
 <meta charset="UTF-8">
-<title>Story App</title>
+<title>Dark Story</title>
+
+<link rel="manifest" href="manifest.json">
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f0f0f;
-  color: #eaeaea;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #0f0f1a, #050509);
+  color: #eaeaff;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -19,9 +19,11 @@ body {
 
 header {
   padding: 15px;
-  font-size: 18px;
-  border-bottom: 1px solid #2a2a2a;
   text-align: center;
+  font-size: 20px;
+  background: linear-gradient(90deg, #a855f7, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #chat {
@@ -34,34 +36,33 @@ header {
   max-width: 80%;
   padding: 12px;
   margin-bottom: 10px;
-  border-radius: 12px;
+  border-radius: 15px;
   line-height: 1.5;
   white-space: pre-line;
 }
 
 .user {
-  background: #2f6df6;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
   margin-left: auto;
 }
 
 .ai {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(168,85,247,0.3);
+  box-shadow: 0 0 10px rgba(168,85,247,0.2);
 }
 
 #controls {
   padding: 10px;
-  border-top: 1px solid #2a2a2a;
-  background: #121212;
 }
 
 select, input {
   width: 100%;
   margin-bottom: 8px;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  background: #1a1a1a;
+  background: rgba(255,255,255,0.05);
   color: white;
 }
 
@@ -69,36 +70,31 @@ select, input {
   display: flex;
   gap: 8px;
   padding: 10px;
-  border-top: 1px solid #2a2a2a;
 }
 
 textarea {
   flex: 1;
-  resize: none;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
-  background: #1a1a1a;
+  background: rgba(255,255,255,0.05);
   color: white;
 }
 
 button {
   padding: 10px;
+  border-radius: 12px;
   border: none;
-  border-radius: 10px;
-  background: #2f6df6;
+  background: linear-gradient(90deg, #a855f7, #3b82f6, #10b981);
   color: white;
-}
-
-#secondary {
-  background: #444;
-}
+  }
 </style>
+
 </head>
 
 <body>
 
-<header>Story Chat</header>
+<header>✨ Dark Story ✨</header>
 
 <div id="chat"></div>
 
@@ -107,25 +103,15 @@ button {
 <select id="profiles"></select>
 <button onclick="addProfile()">Neues Profil</button>
 
-<label>Intensität:</label>
+<label>Intensität</label>
 <input type="range" id="intensity" min="0.3" max="1.2" step="0.1" value="0.8">
-
-<input id="savePrompt" placeholder="Prompt speichern...">
-<button onclick="savePromptFunc()">Prompt speichern</button>
-
-<select id="savedPrompts" onchange="loadPrompt()">
-  <option value="">Gespeicherte Prompts</option>
-</select>
-
-<button onclick="toggleTheme()">Theme wechseln</button>
 
 </div>
 
 <div id="inputArea">
   <textarea id="prompt" placeholder="Schreibe deine Idee..."></textarea>
   <button onclick="generateStory()">Senden</button>
-  <button id="secondary" onclick="continueStory()">Weiter</button>
-  <button id="secondary" onclick="clearChat()">Clear</button>
+  <button onclick="continueStory()">Weiter</button>
 </div>
 
 <script>
@@ -141,9 +127,8 @@ function saveProfiles() {
 function renderProfiles() {
   const select = document.getElementById("profiles");
   select.innerHTML = '<option value="">Profil wählen</option>';
-
   profiles.forEach((p, i) => {
-    const opt = document.createElement("option");
+    let opt = document.createElement("option");
     opt.value = i;
     opt.text = p.name;
     select.appendChild(opt);
@@ -151,71 +136,54 @@ function renderProfiles() {
 }
 
 function addProfile() {
-  const name = prompt("Name des Charakters:");
+  const name = prompt("Name:");
   const desc = prompt("Beschreibung:");
-
   if (!name || !desc) return;
-
-  profiles.push({ name, desc });
+  profiles.push({name, desc});
   saveProfiles();
   renderProfiles();
 }
 
-function getProfileText() {
-  const index = document.getElementById("profiles").value;
-  if (index === "") return "";
-  return profiles[index].desc;
-}
-
-function saveChat() {
-  localStorage.setItem("chat", document.getElementById("chat").innerHTML);
-}
-
-function loadChat() {
-  const saved = localStorage.getItem("chat");
-  if (saved) document.getElementById("chat").innerHTML = saved;
+function getProfile() {
+  const i = document.getElementById("profiles").value;
+  if (i === "") return "";
+  return profiles[i].desc;
 }
 
 function addMessage(text, type) {
   const chat = document.getElementById("chat");
-  const div = document.createElement("div");
+  let div = document.createElement("div");
   div.className = "message " + type;
   div.innerText = text;
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
-  saveChat();
 }
 
 function typeText(el, text) {
   let i = 0;
   el.innerText = "";
-  function t() {
-    if (i < text.length) {
+  function t(){
+    if(i<text.length){
       el.innerText += text[i++];
-      setTimeout(t, 8);
+      setTimeout(t,8);
     } else {
       lastAIText = text;
-      saveChat();
     }
   }
   t();
 }
 
-async function sendToAI(userText) {
-  const profile = getProfileText();
+async function sendToAI(text){
+  const profile = getProfile();
   const intensity = document.getElementById("intensity").value;
 
-  const system =
-    "Antworte auf Deutsch. Schreibe eine intensive Geschichte. " +
-    (profile ? "Charakter: " + profile : "");
-
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
+  const response = await fetch(API_URL,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
     body: JSON.stringify({
-      messages: [
-        {role:"system", content:system},
-        {role:"user", content:userText}
+      messages:[
+        {role:"system", content:"Schreibe auf Deutsch. "+profile},
+        {role:"user", content:text}
       ],
       temperature: parseFloat(intensity),
       max_tokens:600
@@ -225,91 +193,45 @@ async function sendToAI(userText) {
   return await response.json();
 }
 
-async function generateStory() {
+async function generateStory(){
   const input = document.getElementById("prompt");
   const text = input.value.trim();
-  if (!text) return;
+  if(!text) return;
 
   addMessage(text,"user");
-  input.value = "";
+  input.value="";
 
-  const aiDiv = document.createElement("div");
-  aiDiv.className = "message ai";
-  aiDiv.innerText = "Generiere...";
+  let aiDiv = document.createElement("div");
+  aiDiv.className="message ai";
+  aiDiv.innerText="Generiere...";
   document.getElementById("chat").appendChild(aiDiv);
 
-  try {
+  try{
     const data = await sendToAI(text);
-    typeText(aiDiv, data.choices[0].message.content);
-  } catch {
-    aiDiv.innerText = "Fehler";
+    typeText(aiDiv,data.choices[0].message.content);
+  }catch{
+    aiDiv.innerText="Fehler";
   }
 }
 
-async function continueStory() {
-  if (!lastAIText) return;
+async function continueStory(){
+  if(!lastAIText) return;
 
-  addMessage("Weiter schreiben","user");
+  addMessage("Weiter","user");
 
-  const aiDiv = document.createElement("div");
-  aiDiv.className = "message ai";
-  aiDiv.innerText = "Generiere...";
+  let aiDiv = document.createElement("div");
+  aiDiv.className="message ai";
+  aiDiv.innerText="Generiere...";
   document.getElementById("chat").appendChild(aiDiv);
 
-  try {
-    const data = await sendToAI("Führe die Geschichte logisch weiter:\n" + lastAIText);
-    typeText(aiDiv, data.choices[0].message.content);
-  } catch {
-    aiDiv.innerText = "Fehler";
+  try{
+    const data = await sendToAI("Führe fort:\n"+lastAIText);
+    typeText(aiDiv,data.choices[0].message.content);
+  }catch{
+    aiDiv.innerText="Fehler";
   }
 }
 
-function clearChat() {
-  document.getElementById("chat").innerHTML="";
-  localStorage.removeItem("chat");
-}
-
-function savePromptFunc() {
-  const val = document.getElementById("savePrompt").value;
-  if (!val) return;
-
-  let list = JSON.parse(localStorage.getItem("prompts") || "[]");
-  list.push(val);
-  localStorage.setItem("prompts", JSON.stringify(list));
-  loadPrompts();
-}
-
-function loadPrompts() {
-  const select = document.getElementById("savedPrompts");
-  select.innerHTML = '<option value="">Gespeicherte Prompts</option>';
-
-  let list = JSON.parse(localStorage.getItem("prompts") || "[]");
-  list.forEach(p => {
-    let o = document.createElement("option");
-    o.value = p;
-    o.text = p;
-    select.appendChild(o);
-  });
-}
-
-function loadPrompt() {
-  document.getElementById("prompt").value =
-    document.getElementById("savedPrompts").value;
-}
-
-function toggleTheme() {
-  const body = document.body;
-  if (body.style.background === "white") {
-    body.style.background = "#0f0f0f";
-    body.style.color = "#eaeaea";
-  } else {
-    body.style.background = "white";
-    body.style.color = "black";
-  }
-}
-
-loadChat();
-loadPrompts();
 renderProfiles();
 </script>
 
