@@ -189,7 +189,7 @@ button:hover {
   <!-- MAIN -->
   <div id="main">
 
-    <header>Dark Story</header>
+    <header>Story</header>
 
     <div id="controls">
       <label>Intensität</label>
@@ -209,7 +209,7 @@ button:hover {
 
 </body>
 
-<header>✨ Dark Story ✨</header>
+<header>✨Story✨</header>
 
 <div id="chat"></div>
 
@@ -369,12 +369,37 @@ function updateChatList() {
   chats.forEach((chat, index) => {
     const div = document.createElement("div");
     div.className = "chatItem" + (index === aktuellerChat ? " chatActive" : "");
-    div.innerText = "Chat " + (index + 1);
-    div.onclick = () => {
+
+    const name = document.createElement("span");
+    name.innerText = "Chat " + (index + 1);
+    name.onclick = () => {
       aktuellerChat = index;
       renderChat();
       updateChatList();
     };
+
+    const del = document.createElement("span");
+    del.innerText = "✖";
+    del.style.float = "right";
+    del.style.cursor = "pointer";
+    del.onclick = (e) => {
+      e.stopPropagation();
+      chats.splice(index, 1);
+
+      if (aktuellerChat >= chats.length) {
+        aktuellerChat = chats.length - 1;
+      }
+
+      if (chats.length === 0) {
+        neuerChat();
+      }
+
+      updateChatList();
+      renderChat();
+    };
+
+    div.appendChild(name);
+    div.appendChild(del);
     list.appendChild(div);
   });
 }
