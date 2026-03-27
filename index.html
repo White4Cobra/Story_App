@@ -124,11 +124,90 @@ button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 25px rgba(168,85,247,0.6);
 }
+  #app {
+  display: flex;
+  height: 100vh;
+}
+
+/* SIDEBAR */
+#sidebar {
+  width: 250px;
+  background: #050510;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar h2 {
+  margin-bottom: 10px;
+  color: #a855f7;
+}
+
+#chatList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chatItem {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
+}
+
+.chatItem:hover {
+  background: rgba(168,85,247,0.2);
+}
+
+.chatActive {
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+}
+
+/* MAIN */
+#main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 </style>
 
 </head>
 
 <body>
+
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <h2>Chats</h2>
+    <div id="chatList"></div>
+    <button onclick="neuerChat()">+ Neuer Chat</button>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <header>Dark Story</header>
+
+    <div id="controls">
+      <label>Intensität</label>
+      <input type="range" id="intensity" min="1" max="10" value="5">
+    </div>
+
+    <div id="chat"></div>
+
+    <div id="inputArea">
+      <textarea id="userInput" placeholder="Schreibe deine Idee..."></textarea>
+      <button onclick="senden()">Senden</button>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
 
 <header>✨ Dark Story ✨</header>
 
@@ -270,7 +349,73 @@ async function continueStory(){
 
 renderProfiles();
 </script>
+  
+<script>
 
+let chats = [];
+let aktuellerChat = 0;
+
+function neuerChat() {
+  chats.push([]);
+  aktuellerChat = chats.length - 1;
+  updateChatList();
+  renderChat();
+}
+
+function updateChatList() {
+  const list = document.getElementById("chatList");
+  list.innerHTML = "";
+
+  chats.forEach((chat, index) => {
+    const div = document.createElement("div");
+    div.className = "chatItem" + (index === aktuellerChat ? " chatActive" : "");
+    div.innerText = "Chat " + (index + 1);
+    div.onclick = () => {
+      aktuellerChat = index;
+      renderChat();
+      updateChatList();
+    };
+    list.appendChild(div);
+  });
+}
+
+function renderChat() {
+  const chatDiv = document.getElementById("chat");
+  chatDiv.innerHTML = "";
+
+  chats[aktuellerChat].forEach(msg => {
+    const div = document.createElement("div");
+    div.className = "message " + msg.type;
+    div.innerText = msg.text;
+    chatDiv.appendChild(div);
+  });
+}
+
+function senden() {
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  chats[aktuellerChat].push({ type: "user", text });
+
+  // Fake AI Antwort (ersetzen wir später)
+  setTimeout(() => {
+    chats[aktuellerChat].push({
+      type: "ai",
+      text: "Dunkle Geschichte entsteht... " + text
+    });
+    renderChat();
+  }, 500);
+
+  input.value = "";
+  renderChat();
+}
+
+// Start
+neuerChat();
+
+</script>
+  
 </body>
 </html>
 <!-- update -->
