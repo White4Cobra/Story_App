@@ -8,9 +8,9 @@
   "description": "Eigene KI Story App",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3468/3468371.png",
+      "src": "icon.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     }
   ]
 }
