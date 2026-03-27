@@ -2,129 +2,17 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Deine Story</title>
-
-<link rel="manifest" href="manifest.json">
+<title>✨ Story ✨</title>
 
 <style>
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #0b0b1a, #030308);
-  color: #eaeaff;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-/* HEADER */
-header {
-  padding: 18px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  background: linear-gradient(90deg, #a855f7, #3b82f6, #10b981);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(168,85,247,0.4);
-}
-
-/* CHAT AREA */
-#chat {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-/* NACHRICHTEN */
-.message {
-  max-width: 75%;
-  padding: 14px;
-  margin-bottom: 12px;
-  border-radius: 18px;
-  line-height: 1.6;
-  backdrop-filter: blur(10px);
-  transition: 0.2s;
-}
-
-.user {
-  margin-left: auto;
-  background: linear-gradient(135deg, #3b82f6, #10b981);
-  box-shadow: 0 0 15px rgba(16,185,129,0.3);
-}
-
-.ai {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(168,85,247,0.3);
-  box-shadow: 0 0 15px rgba(168,85,247,0.2);
-}
-
-/* PANEL (oben) */
-#controls {
-  padding: 15px;
-  margin: 10px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 20px rgba(168,85,247,0.15);
-}
-
-/* INPUTS */
-select, input {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 12px;
-  border: none;
-  background: rgba(255,255,255,0.06);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
   color: white;
 }
 
-/* SLIDER */
-input[type=range] {
-  accent-color: #a855f7;
-}
-
-/* INPUT AREA UNTEN */
-#inputArea {
-  display: flex;
-  gap: 10px;
-  padding: 12px;
-  margin: 10px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(12px);
-}
-
-/* TEXTFELD */
-textarea {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: rgba(255,255,255,0.06);
-  color: white;
-  resize: none;
-}
-
-/* BUTTONS */
-button {
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, #a855f7, #3b82f6, #10b981);
-  color: white;
-  box-shadow: 0 0 15px rgba(168,85,247,0.3);
-  transition: 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(168,85,247,0.6);
-}
-  #app {
+#app {
   display: flex;
   height: 100vh;
 }
@@ -132,47 +20,91 @@ button:hover {
 /* SIDEBAR */
 #sidebar {
   width: 250px;
-  background: #050510;
-  border-right: 1px solid rgba(255,255,255,0.1);
+  background: #111122;
   padding: 15px;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 #sidebar h2 {
-  margin-bottom: 10px;
   color: #a855f7;
-}
-
-#chatList {
-  flex: 1;
-  overflow-y: auto;
 }
 
 .chatItem {
   padding: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  background: #1f1f3a;
   border-radius: 10px;
   cursor: pointer;
-  background: rgba(255,255,255,0.05);
-}
-
-.chatItem:hover {
-  background: rgba(168,85,247,0.2);
+  display: flex;
+  justify-content: space-between;
 }
 
 .chatActive {
-  background: linear-gradient(135deg, #a855f7, #3b82f6);
+  background: linear-gradient(135deg, #a855f7, #22c55e);
 }
-
-/* MAIN */
+  
+  /* MAIN */
 #main {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-</style>
 
+#chatTitle {
+  text-align: center;
+  padding: 15px;
+  font-size: 20px;
+  background: #111122;
+  color: #22c55e;
+}
+
+/* CHAT */
+#chat {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 60%;
+}
+
+.user {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  align-self: flex-end;
+}
+
+.bot {
+  background: #2a2a4a;
+}
+
+/* INPUT */
+#inputArea {
+  display: flex;
+  padding: 10px;
+  background: #111122;
+}
+
+#input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #a855f7, #22c55e);
+  color: white;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
@@ -189,201 +121,79 @@ button:hover {
   <!-- MAIN -->
   <div id="main">
 
-    <header>Story</header>
-
-    <div id="controls">
-      <label>Intensität</label>
-      <input type="range" id="intensity" min="1" max="10" value="5">
-    </div>
+    <h2 id="chatTitle">Chat</h2>
 
     <div id="chat"></div>
 
     <div id="inputArea">
-      <textarea id="userInput" placeholder="Schreibe deine Idee..."></textarea>
-      <button onclick="senden()">Senden</button>
+      <input id="input" placeholder="Schreibe deine Idee...">
+      <button onclick="send()">Senden</button>
     </div>
 
   </div>
 
 </div>
 
-</body>
-
-<header>✨Story✨</header>
-
-<div id="chat"></div>
-
-<div id="controls">
-
-<select id="profiles"></select>
-<button onclick="addProfile()">Neues Profil</button>
-
-<label>Intensität</label>
-<input type="range" id="intensity" min="0.3" max="1.2" step="0.1" value="0.8">
-
-</div>
-
-<div id="inputArea">
-  <textarea id="prompt" placeholder="Schreibe deine Idee..."></textarea>
-  <button onclick="generateStory()">Senden</button>
-  <button onclick="continueStory()">Weiter</button>
-</div>
-
-<script>
-const API_URL = "http://192.168.178.49:1234/api/v1/chat";
-
-let profiles = JSON.parse(localStorage.getItem("profiles") || "[]");
-let lastAIText = "";
-
-function saveProfiles() {
-  localStorage.setItem("profiles", JSON.stringify(profiles));
-}
-
-function renderProfiles() {
-  const select = document.getElementById("profiles");
-  select.innerHTML = '<option value="">Profil wählen</option>';
-  profiles.forEach((p, i) => {
-    let opt = document.createElement("option");
-    opt.value = i;
-    opt.text = p.name;
-    select.appendChild(opt);
-  });
-}
-
-function addProfile() {
-  const name = prompt("Name:");
-  const desc = prompt("Beschreibung:");
-  if (!name || !desc) return;
-  profiles.push({name, desc});
-  saveProfiles();
-  renderProfiles();
-}
-
-function getProfile() {
-  const i = document.getElementById("profiles").value;
-  if (i === "") return "";
-  return profiles[i].desc;
-}
-
-function addMessage(text, type) {
-  const chat = document.getElementById("chat");
-  let div = document.createElement("div");
-  div.className = "message " + type;
-  div.innerText = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function typeText(el, text) {
-  let i = 0;
-  el.innerText = "";
-  function t(){
-    if(i<text.length){
-      el.innerText += text[i++];
-      setTimeout(t,8);
-    } else {
-      lastAIText = text;
-    }
-  }
-  t();
-}
-
-async function sendToAI(text){
-  const profile = getProfile();
-  const intensity = document.getElementById("intensity").value;
-
-  const response = await fetch(API_URL,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({
-      messages:[
-        {role:"system", content:"Schreibe auf Deutsch. "+profile},
-        {role:"user", content:text}
-      ],
-      temperature: parseFloat(intensity),
-      max_tokens:600
-    })
-  });
-
-  return await response.json();
-}
-
-async function generateStory(){
-  const input = document.getElementById("prompt");
-  const text = input.value.trim();
-  if(!text) return;
-
-  addMessage(text,"user");
-  input.value="";
-
-  let aiDiv = document.createElement("div");
-  aiDiv.className="message ai";
-  aiDiv.innerText="Generiere...";
-  document.getElementById("chat").appendChild(aiDiv);
-
-  try{
-    const data = await sendToAI(text);
-    typeText(aiDiv,data.choices[0].message.content);
-  }catch{
-    aiDiv.innerText="Fehler";
-  }
-}
-
-async function continueStory(){
-  if(!lastAIText) return;
-
-  addMessage("Weiter","user");
-
-  let aiDiv = document.createElement("div");
-  aiDiv.className="message ai";
-  aiDiv.innerText="Generiere...";
-  document.getElementById("chat").appendChild(aiDiv);
-
-  try{
-    const data = await sendToAI("Führe fort:\n"+lastAIText);
-    typeText(aiDiv,data.choices[0].message.content);
-  }catch{
-    aiDiv.innerText="Fehler";
-  }
-}
-
-renderProfiles();
-</script>
-  
 <script>
 
-let chats = [];
+let chats = [
+  { name: "Chat 1", messages: [] }
+];
 let aktuellerChat = 0;
 
+/* NEUER CHAT */
 function neuerChat() {
-  chats.push([]);
+  const name = prompt("Name für neuen Chat:");
+
+  chats.push({
+    name: name || "Chat " + (chats.length + 1),
+    messages: []
+  });
+
   aktuellerChat = chats.length - 1;
+
   updateChatList();
   renderChat();
 }
 
+/* CHAT LISTE */
 function updateChatList() {
   const list = document.getElementById("chatList");
   list.innerHTML = "";
 
   chats.forEach((chat, index) => {
-    const div = document.createElement("div");
-    div.className = "chatItem" + (index === aktuellerChat ? " chatActive" : "");
+
+    const container = document.createElement("div");
+    container.className = "chatItem" + (index === aktuellerChat ? " chatActive" : "");
 
     const name = document.createElement("span");
-    name.innerText = "Chat " + (index + 1);
+    name.innerText = chat.name;
+
     name.onclick = () => {
       aktuellerChat = index;
       renderChat();
       updateChatList();
     };
 
-    const del = document.createElement("span");
-    del.innerText = "✖";
-    del.style.float = "right";
-    del.style.cursor = "pointer";
-    del.onclick = (e) => {
+    /* UMBENENNEN */
+    name.ondblclick = () => {
+      const neuerName = prompt("Neuer Name:", chat.name);
+      if (neuerName) {
+        chat.name = neuerName;
+        updateChatList();
+        renderChat();
+      }
+    };
+
+    /* LÖSCHEN */
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "✖";
+    deleteBtn.style.background = "transparent";
+    deleteBtn.style.color = "#ff4d6d";
+
+    deleteBtn.onclick = (e) => {
       e.stopPropagation();
+
       chats.splice(index, 1);
 
       if (aktuellerChat >= chats.length) {
@@ -391,56 +201,71 @@ function updateChatList() {
       }
 
       if (chats.length === 0) {
-        neuerChat();
+        chats.push({ name: "Chat 1", messages: [] });
+        aktuellerChat = 0;
       }
 
       updateChatList();
       renderChat();
     };
 
-    div.appendChild(name);
-    div.appendChild(del);
-    list.appendChild(div);
+    container.appendChild(name);
+    container.appendChild(deleteBtn);
+    list.appendChild(container);
   });
 }
 
+/* CHAT RENDERN */
 function renderChat() {
   const chatDiv = document.getElementById("chat");
   chatDiv.innerHTML = "";
 
-  chats[aktuellerChat].forEach(msg => {
+  document.getElementById("chatTitle").innerText = chats[aktuellerChat].name;
+
+  chats[aktuellerChat].messages.forEach(msg => {
     const div = document.createElement("div");
     div.className = "message " + msg.type;
     div.innerText = msg.text;
     chatDiv.appendChild(div);
   });
+
+  chatDiv.scrollTop = chatDiv.scrollHeight;
 }
 
-function senden() {
-  const input = document.getElementById("userInput");
+/* SENDEN */
+function send() {
+  const input = document.getElementById("input");
   const text = input.value.trim();
+
   if (!text) return;
 
-  chats[aktuellerChat].push({ type: "user", text });
-
-  // Fake AI Antwort (ersetzen wir später)
-  setTimeout(() => {
-    chats[aktuellerChat].push({
-      type: "ai",
-      text: "Dunkle Geschichte entsteht... " + text
-    });
-    renderChat();
-  }, 500);
+  chats[aktuellerChat].messages.push({ type: "user", text });
 
   input.value = "";
+
   renderChat();
+
+  /* Fake KI Antwort */
+  setTimeout(() => {
+    const antwort = "✨ Geschichte entsteht...: " + text;
+
+    chats[aktuellerChat].messages.push({
+      type: "bot",
+      text: antwort
+    });
+
+    renderChat();
+  }, 500);
 }
 
-// Start
-neuerChat();
+/* START */
+updateChatList();
+renderChat();
 
 </script>
-  
+
 </body>
 </html>
+
+
 <!-- update -->
