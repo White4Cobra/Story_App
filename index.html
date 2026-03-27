@@ -123,7 +123,7 @@ button {
 
 <div id="inputArea">
   <textarea id="prompt"></textarea>
-  <button onclick="generateStory()">Senden</button>
+  <button onclick="neuerChat()">+ Neuer Chat</button>
 </div>
 
 </div>
@@ -136,6 +136,7 @@ const API_URL = "http://192.168.178.49:1234/v1/chat/completions";
 let chats = [
   { name: "Chat 1", messages: [] }
 ];
+  neuerChat();
 let aktuellerChat = 0;
 
 /* CHAT LISTE */
@@ -256,10 +257,11 @@ function neuerChat() {
   });
 
   aktuellerChat = chats.length - 1;
+
   updateChatList();
   renderChat();
 }
-
+  
 /* START */
 updateChatList();
 renderChat();
