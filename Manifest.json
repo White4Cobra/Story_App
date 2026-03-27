@@ -1,0 +1,16 @@
+{
+  "name": "Story App",
+  "short_name": "Story",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#2f6df6",
+  "description": "Eigene KI Story App",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3468/3468371.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
