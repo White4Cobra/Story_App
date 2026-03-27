@@ -193,7 +193,8 @@ function renderChat() {
   const chatDiv = document.getElementById("chat");
   chatDiv.innerHTML = "";
 
-  document.getElementById("chatTitle").innerText = chats[aktuellerChat].name;
+  document.getElementById("chatTitle").innerText =
+    chats[aktuellerChat].name;
 
   chats[aktuellerChat].messages.forEach(msg => {
     const div = document.createElement("div");
@@ -214,7 +215,7 @@ async function sendToAI(text){
     body: JSON.stringify({
       model: "lmstudio",
       messages:[
-        {role:"system", content:"Du bist eine KI für düstere Geschichten."},
+        {role:"system", content:"Du bist eine KI für Geschichten."},
         {role:"user", content:text}
       ]
     })
@@ -225,44 +226,36 @@ async function sendToAI(text){
 }
 
 /* SEND */
-async function generateStory(){
-  const input = document.getElementById("prompt");
+function senden() {
+  const input = document.getElementById("userInput");
   const text = input.value.trim();
-  if(!text) return;
+  if (!text) return;
 
-  chats[aktuellerChat].messages.push({type:"user",text});
+  chats[aktuellerChat].messages.push({
+    type: "user",
+    text: text
+  });
+
+  input.value = "";
   renderChat();
-  input.value="";
 
-  try{
-    const data = await sendToAI(text);
-    const reply = data.choices[0].message.content;
-
+  // Fake AI (oder später echte KI)
     chats[aktuellerChat].messages.push({
-      type:"ai",
-      text: reply
-    });
-
-    renderChat();
-
-  }catch{
-    chats[aktuellerChat].messages.push({
-      type:"ai",
-      text:"Fehler bei KI"
+      type: "ai",
+      text: "Dunkle Geschichte entsteht... " + text
     });
     renderChat();
-  }
+  }, 500);
 }
 
 /* NEUER CHAT */
-function neuerChat(){
-  const name = prompt("Name?");
+function neuerChat() {
   chats.push({
-    name: name || "Chat "+(chats.length+1),
-    messages:[]
+    name: "Chat " + (chats.length + 1),
+    messages: []
   });
 
-  aktuellerChat = chats.length-1;
+  aktuellerChat = chats.length - 1;
   updateChatList();
   renderChat();
 }
