@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+<head id="chatTitle">Story</header>
 <meta charset="UTF-8">
 <title>Deine Story</title>
 
@@ -131,7 +131,7 @@ button {
 </div>
 
 <script>
-const API_URL = "http://192.168.178.49:1234/api/v1/chat";
+const API_URL = "http://192.168.178.49:1234/v1/chat/completions";
 
 let chats = [
   { name: "Chat 1", messages: [] }
@@ -205,17 +205,23 @@ function renderChat() {
 
 /* KI */
 async function sendToAI(text){
+
   const response = await fetch(API_URL,{
     method:"POST",
-    headers:{"Content-Type":"application/json"},
+    headers:{
+      "Content-Type":"application/json"
+    },
     body: JSON.stringify({
+      model: "lmstudio",
       messages:[
+        {role:"system", content:"Du bist eine KI für düstere Geschichten."},
         {role:"user", content:text}
       ]
     })
   });
 
-  return await response.json();
+  const data = await response.json();
+  return data;
 }
 
 /* SEND */
